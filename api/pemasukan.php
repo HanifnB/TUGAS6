@@ -1,4 +1,9 @@
 <?php
+if (!isset($_COOKIE['login']) || $_COOKIE['login'] !== 'true') {
+    header("Location: index.php");
+    exit;
+}
+
 include "koneksi.php";
 
 $data = mysqli_query(
@@ -64,8 +69,8 @@ $data = mysqli_query(
                     </a>
 
                     |
-
-                   <a href="hapus_pengeluaran.php?id=<?= $row['id']; ?>" onclick="return confirm('Yakin ingin menghapus data ini?');">
+                    
+                    <a href="hapus_pemasukan.php?id=<?= $row['id']; ?>" onclick="return confirm('Yakin ingin menghapus data ini?');">
                     Hapus
                     </a>
 

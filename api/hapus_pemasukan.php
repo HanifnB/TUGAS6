@@ -1,4 +1,8 @@
 <?php
+if (!isset($_COOKIE['login']) || $_COOKIE['login'] !== "true") {
+    header("Location: /index.php");
+    exit;
+}
 
 include "koneksi.php";
 
@@ -11,3 +15,5 @@ mysqli_query(
 );
 
 header("Location: pemasukan.php");
+exit;
+?>

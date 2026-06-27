@@ -1,4 +1,9 @@
 <?php
+if (!isset($_COOKIE['login']) || $_COOKIE['login'] !== 'true') {
+    header("Location: index.php");
+    exit;
+}
+
 include "koneksi.php";
 
 $data = mysqli_query(

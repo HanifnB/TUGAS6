@@ -1,4 +1,8 @@
 <?php
+if (!isset($_COOKIE['login']) || $_COOKIE['login'] !== 'true') {
+    header("Location: index.php");
+    exit;
+}
 
 include "koneksi.php";
 
@@ -34,22 +38,24 @@ if (isset($_POST['update'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Edit Pengeluaran</title>
+    <title>Edit Pemasukan</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <h2>Edit Data Pemasukan</h2>
+
     <form method="POST">
     
         Tanggal<br>
-        <input type="date" name="tanggal" value="<?= $data['tanggal']; ?>"><br><br>
+        <input type="date" name="tanggal" value="<?= $data['tanggal']; ?>" required><br><br>
     
         Keterangan<br>
-        <input type="text" name="keterangan" value="<?= $data['keterangan']; ?>"><br><br>
+        <input type="text" name="keterangan" value="<?= $data['keterangan']; ?>" required><br><br>
     
         Jumlah<br>
-        <input type="number" name="jumlah" value="<?= $data['jumlah']; ?>"><br><br>
+        <input type="number" name="jumlah" value="<?= $data['jumlah']; ?>" required><br><br>
     
-        <button name="update">
+        <button type="submit" name="update">
             Update
         </button>
     

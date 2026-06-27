@@ -1,7 +1,6 @@
 <?php
-session_start();
 
-if (!isset($_SESSION['login'])) {
+if (!isset($_COOKIE['login']) || $_COOKIE['login'] !== 'true') {
     header("Location: index.php");
     exit;
 }
@@ -40,7 +39,7 @@ $saldo = $totalMasuk - $totalKeluar;
 
     <h2>Dashboard</h2>
 
-    <p>Selamat Datang <?= $_SESSION['username']; ?></p>
+    <p>Selamat Datang <?= $_COOKIE['username']; ?></p>
 
     <h3>Total Pemasukan :
         Rp <?= number_format($totalMasuk, 0, ",", "."); ?>

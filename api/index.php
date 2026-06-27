@@ -1,10 +1,12 @@
 <?php
-session_start();
 include "koneksi.php";
 
+if (isset($_COOKIE['login']) && $_COOKIE['login'] == 'true') {
+    header("Location: dashboard.php");
+    exit;
+}
 
 if (isset($_POST['login'])) {
-
     $username = $_POST['username'];
     $password = $_POST['password'];
 
@@ -16,9 +18,8 @@ if (isset($_POST['login'])) {
     );
 
     if (mysqli_num_rows($query) > 0) {
-
-        $_SESSION['login'] = true;
-        $_SESSION['username'] = $username;
+        setcookie("login", "true", time() + 86400, "/");
+        setcookie("username", $username, time() + 86400, "/");
 
         header("Location: dashboard.php");
         exit;
@@ -30,34 +31,31 @@ if (isset($_POST['login'])) {
 
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
     <h2>Login</h2>
 
     <?php
     if (isset($error)) {
-        echo $error;
+        echo "<p style='color:red;'>" . $error . "</p>";
     }
     ?>
 
     <form method="POST">
 
         <label>Username</label><br>
-        <input type="text" name="username"><br><br>
+        <input type="text" name="username" required><br><br>
 
         <label>Password</label><br>
-        <input type="password" name="password"><br><br>
+        <input type="password" name="password" required><br><br>
 
         <button name="login">Login</button>
 
     </form>
 
 </body>
-
 </html>
